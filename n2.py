@@ -34,10 +34,22 @@ for town in filterTown:
 
 #Plot part
 
-fig = plt.figure(figsize =(10, 7)) 
+fig = plt.figure(figsize =(10, 7))
   
 # Creating plot 
-plt.boxplot(plotdata) 
-  
+b = plt.boxplot(plotdata, labels=['4-BR', '5-BR','4-BR', '5-BR', '4-BR', '5-BR', '4-BR', '5-BR', '4-BR', '5-BR', '4-BR', '5-BR'], patch_artist=True,)
+colours = ['red', 'pink', 'red', 'pink', 'red', 'pink','red', 'pink', 'red', 'pink', 'red', 'pink',]
+
+for i in range(len(b['boxes'])):  #0 to 11
+    b['boxes'][i].set_facecolor(colours[i])
+    
+for i in range(len(b['medians'])):  #0 to 11
+    x,y = b['medians'][i].get_xydata()[1]
+    plt.text(x,y,y, fontsize=14)
+
+
 # show plot 
-plt.show() 
+plt.title('Median Resale Prices', fontweight='bold')
+plt.xlabel("Flat Type")
+plt.ylabel("SGD$")
+plt.show()
