@@ -45,7 +45,7 @@ for i in range(len(b['boxes'])):  #0 to 11
     
 for i in range(len(b['medians'])):  #0 to 11
     x,y = b['medians'][i].get_xydata()[1]
-    plt.text(x,y,y, fontsize=14)
+    plt.text(x,y,"${:.0f}".format(y), fontsize=14)
 
 
 # show plot 
