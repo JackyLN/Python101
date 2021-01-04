@@ -39,7 +39,7 @@ filterYear1 = np.arange(2015, 2017)
 filterYear2 = np.arange(2017, 2021)
 
 #Get mean
-data = []
+data = np.empty( (0,), dtype=[('town', 'U30'),('year','i4'),('median','i8')] )
 
 for town in filterTown:
 
@@ -49,25 +49,31 @@ for town in filterTown:
     for year in filterYear1:
         yearTmp = townTmp1[np.char.find(townTmp1['month'], str(year)) > -1]
         avgPrice = yearTmp['price'].mean()
-        data.append([town,year,avgPrice])
+
+        inArray = [town, year, avgPrice]
+        inData = np.array([tuple(inArray)], dtype=data.dtype)
+        data = np.append(data, inData , axis=0)
+    
 
     for year in filterYear2:
         yearTmp = townTmp2[np.char.find(townTmp2['month'], str(year)) > -1]
         avgPrice = yearTmp['price'].mean()
-        data.append([town,year,avgPrice])
+        
+        inArray = [town, year, avgPrice]
+        inData = np.array([tuple(inArray)], dtype=data.dtype)
+        data = np.append(data, inData, axis=0)
+
 
 #print mean
 print("There are altogether {} rows of data in this dataset.".format(mySum))
 for x in data: 
-    print("The median resale flat price for {} in {} is ${:.0f}".format(x[0], x[1], x[2]))
+    print("The median resale flat price for {} in {} is ${:.0f}".format(x['town'], x['year'], x['median']))
     
     
 #print median
 for town in filterTown:
 
-#    tmp = data[np.char.find(data[0], str(town)) > -1]
-
-    tmp = data[(data[0] == town)]
-    avg  = tmp[2].mean()
+    tmp = data[(data['town'] == town)]
+    avg  = tmp['median'].mean()
             
     print("The median resale flat price inn {} for the last five year is {}".format(town, avg))
