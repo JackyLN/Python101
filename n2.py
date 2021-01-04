@@ -35,21 +35,30 @@ for town in filterTown:
 #Plot part
 
 fig = plt.figure(figsize =(10, 7))
-  
-# Creating plot 
+
 b = plt.boxplot(plotdata, labels=['4-BR', '5-BR','4-BR', '5-BR', '4-BR', '5-BR', '4-BR', '5-BR', '4-BR', '5-BR', '4-BR', '5-BR'], patch_artist=True,)
-colours = ['red', 'pink', 'red', 'pink', 'red', 'pink','red', 'pink', 'red', 'pink', 'red', 'pink',]
+colours = ['#ffb3ba', '#ffb3ba', '#ffdfba', '#ffdfba', '#ffffba', '#ffffba','#baffc9', '#baffc9', '#bae1ff', '#bae1ff', '#ecd5e3', '#ecd5e3']
 
 for i in range(len(b['boxes'])):  #0 to 11
-    b['boxes'][i].set_facecolor(colours[i])
+   b['boxes'][i].set_facecolor(colours[i])
     
 for i in range(len(b['medians'])):  #0 to 11
-    x,y = b['medians'][i].get_xydata()[1]
-    plt.text(x,y,"${:.0f}".format(y), fontsize=14)
+   x,y = b['medians'][i].get_xydata()[1]
+   plt.text(x,y,'{:.0f}'.format(y), fontsize=8)
 
 
 # show plot 
+
+h1, = plt.plot([],'#ffb3ba')
+h2, = plt.plot([],'#ffdfba')
+h3, = plt.plot([],'#ffffba')
+h4, = plt.plot([],'#baffc9')
+h5, = plt.plot([],'#bae1ff')
+h6, = plt.plot([],'#ecd5e3')
+plt.legend((h1, h2, h3, h4, h5, h6),filterTown)
+
 plt.title('Median Resale Prices', fontweight='bold')
-plt.xlabel("Flat Type")
-plt.ylabel("SGD$")
+plt.xlabel("Flat Type", fontsize=11)
+plt.ylabel("SGD$", fontsize=11)
+plt.suptitle('Figure 3', fontsize=14, fontweight='bold')
 plt.show()
