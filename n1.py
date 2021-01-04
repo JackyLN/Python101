@@ -1,7 +1,7 @@
 #import library
 import numpy as np
 import matplotlib.pyplot as plt
-
+import math
 
 #Load Data
 f1 = "data/resale-flat-prices-based-on-registration-date-from-jan-2015-to-dec-2016.csv"
@@ -49,19 +49,21 @@ for town in filterTown:
     for year in filterYear1:
         yearTmp = townTmp1[np.char.find(townTmp1['month'], str(year)) > -1]
         avgPrice = yearTmp['price'].mean()
-
-        inArray = [town, year, avgPrice]
-        inData = np.array([tuple(inArray)], dtype=data.dtype)
-        data = np.append(data, inData , axis=0)
+        
+        if not math.isnan(avgPrice):
+            inArray = [town, year, avgPrice]
+            inData = np.array([tuple(inArray)], dtype=data.dtype)
+            data = np.append(data, inData , axis=0)
     
 
     for year in filterYear2:
         yearTmp = townTmp2[np.char.find(townTmp2['month'], str(year)) > -1]
-        avgPrice = yearTmp['price'].mean()
+        avgPrice = yearTmp['price'].mean()    
         
-        inArray = [town, year, avgPrice]
-        inData = np.array([tuple(inArray)], dtype=data.dtype)
-        data = np.append(data, inData, axis=0)
+        if not math.isnan(avgPrice):
+            inArray = [town, year, avgPrice]
+            inData = np.array([tuple(inArray)], dtype=data.dtype)
+            data = np.append(data, inData , axis=0)
 
 
 #print mean
